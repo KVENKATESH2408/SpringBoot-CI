@@ -1,5 +1,5 @@
 
-name: Build & Deploy Spring app
+name: Build & Deploy Spring app to Azure
 
 on:
   push:
@@ -43,6 +43,6 @@ jobs:
         with:
           push: true
           tags: venkateshacr.azurecr.io/springboot:${{ github.sha }}
-          file: Dockerfile
+          file: ./Dockerfile
           
 
