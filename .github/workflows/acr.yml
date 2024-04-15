@@ -43,8 +43,11 @@ jobs:
           # Container registry server url
           login-server: ${{ secrets.ACR_LOGIN_SERVER }}
           
-      - run: |
-          docker build . --file Dockerfile --tag $IMAGE_NAME:$IMAGE_TAG
-          docker push venkateshacr.azurecr.io/springboot
+      - name: Build and Push to ACR
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ${{IMAGE_TAG}}
+          file: Dockerfile
  
 
