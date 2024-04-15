@@ -12,7 +12,7 @@ env:
   ACR_NAME: venkateshacr.azurecr.io
 
 jobs:
-  build-deploy:
+  ci-build:
     name: Build and Deploy Spring boot for beginner
     runs-on: ubuntu-latest
     steps:
@@ -52,4 +52,13 @@ jobs:
         with:
           # az ad sp create-for-rbac --name "{sp-name}" --sdk-auth
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-   
+
+  cd-build:
+    name: Deploy to Azure WebApp
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Azure WebApp
+        uses: Azure/webapps-deploy@v3.0.1
+        with:
+          app-name: venkateshcontainers        
+          images:  venkateshacr.azurecr.io/springboot:${{ github.run_id }}
