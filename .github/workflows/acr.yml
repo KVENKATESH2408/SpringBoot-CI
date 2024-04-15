@@ -1,10 +1,15 @@
 
-name: Build & Deploy Spring app to Azure
+name: GitHub Actions CI Pipeline
 
 on:
   push:
     branches:
       - main
+
+env:
+  IMAGE_NAME: springboot
+  IMAGE_TAG: ${{ github.run_id }}
+  ACR_NAME: venkateshacr.azurecr.io
 
 jobs:
   build-deploy:
@@ -39,7 +44,7 @@ jobs:
           login-server: ${{ secrets.ACR_LOGIN_SERVER }}
           
       - run: |
-          docker build . -t venkateshacr.azurecr.io/springboot:v1
-          docker push venkateshacr.azurecr.io/springboot:v1
+          docker build . -t $IMAGE_NAME:$IMAGE_TAG
+          docker push venkateshacr.azurecr.io/$IMAGE_NAME:$IMAGE_TAG
  
 
