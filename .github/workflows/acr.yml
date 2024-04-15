@@ -43,11 +43,8 @@ jobs:
           # Container registry server url
           login-server: ${{ secrets.ACR_LOGIN_SERVER }}
           
-      - name: Build and Push to ACR
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          tags: ${{ github.run_id }}
-          file: Dockerfile
+      - run: |
+          docker build . -t venkateshacr.azurecr.io/springboot:${{ github.run_id }}
+          docker push venkateshacr.azurecr.io/springboot:${{ github.run_id }}
  
 
